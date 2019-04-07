@@ -1,4 +1,4 @@
-#Into the Darkness:
+# Into the Darkness:
 A game in which the player plays by the perspective of a blind person with only a stick available to direct them.
 The game is currently thought of being a maze solving puzzle game but can be amended later on.
 
@@ -12,7 +12,6 @@ The game is currently thought of being a maze solving puzzle game but can be ame
 - Database handling and UI should be cute and minimalistic. The design of player and objects are also to be done.
 
 
-
+[Saksham Dhull](https://github.com/Dhull442) 
 <br>
-[Saksham Dhull](github.com/Dhull442)
-[Ananye Agarwal](github.com/anag004)
+[Ananye Agarwal](https://github.com/anag004)
