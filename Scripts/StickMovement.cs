@@ -6,12 +6,11 @@ public class StickMovement : MonoBehaviour
 {
     public float rotationSpeed = 1.0f;
     public float safeBoundary = 0.05f;
-    public GameObject parent;
+    private GameObject parent;
     public float stickLength = 1.0f;
-    float centerx = Screen.width/2.0f, centery = Screen.height/2.0f;
     // Start is called before the first frame update
     void Start(){
-    
+        parent = transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -22,7 +21,7 @@ public class StickMovement : MonoBehaviour
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         x = objPosition.x - transform.position.x;
         y = objPosition.y - transform.position.y;
-        Debug.Log(x +" "+y);
+        // Debug.Log(x +" "+y);
         float t = Time.deltaTime;
         float movex = 0.0f, movey=0.0f;
         if((x > 0.05f || x < -0.05f) && (y > 0.05f || y < -0.05f)){

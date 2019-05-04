@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     
     // Update is called once per frame
     void FixedUpdate () {
-        Debug.Log("Player position : "+transform.position);
+        // Debug.Log("Player position : "+transform.position);
         walking = false;
         // anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis(axisName)));
         if (Input.GetAxis (axis1) < 0)

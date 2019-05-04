@@ -39,6 +39,8 @@ public class Collision : MonoBehaviour
     void Update()
     {
         if(Time.time > timeOfCollision + timeout){
+            // Color newcolor = materials[1].color - materials[0].color;
+            // rend.sharedMaterial.color -= newcolor*(Time.time - timeout)/timeOfCollision;
             rend.sharedMaterial = materials[0];
         }
     }

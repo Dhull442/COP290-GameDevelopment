@@ -3,7 +3,7 @@
 public class StickCollision : MonoBehaviour
 {
     void OnCollisionEnter(UnityEngine.Collision obj){
-        Debug.Log(obj.collider.name);
+        // Debug.Log(obj.collider.name);
 
     }
     // Start is called before the first frame update

@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class levelcompletion : MonoBehaviour
 {
-    void OnCollisionEnter(UnityEngine.Collision coll){
+    public GameManagerScript gm;
+    // void OnCollisionEnter(UnityEngine.Collision coll){
+    //     if(coll.gameObject.tag == "player"){
+    //         Debug.Log("Level Complete");
+    //         // Level Completion scripts
+    //     }
+    // }
+
+    void OnTriggerEnter(Collider coll){
         if(coll.gameObject.tag == "player"){
-            Debug.Log("Level Complete");
-            // Level Completion scripts
-        }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+            Debug.Log("Triggered");
+            gm.levelcomplete();
+        }   
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
