@@ -6,10 +6,17 @@ using UnityEngine;
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject levelcompleteUI;
+    public GameObject levelfailedUI;
     public void levelcomplete(){
         Debug.Log("YOUR LEVLE DONE");
         levelcompleteUI.SetActive(true);
         loadNextLevel();
+    }
+
+    public void levelfailed(){
+        Debug.Log("Time Limit Exceeded");
+        levelfailedUI.SetActive(true);
+        // Handlers
     }
 
     void loadNextLevel(){
