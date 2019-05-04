@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour
     public Color hcolor;
     public int zoom;
     public int stdzoom;
-    private Color stdcolor = Color.white;
+    private Color stdcolor = Color.black;
     private Camera cam;
     public float dimensionX,dimensionY;
     // Start is called before the first frame update
@@ -59,6 +59,7 @@ public class CameraMovement : MonoBehaviour
             else
                 diry = 1.0f;
         }
-        transform.position += (transform.up *(-dirx) + transform.up *(-diry))* cameraSpeed * Time.deltaTime;
+        transform.position += (Vector3.right *(-dirx) + Vector3.up *(-diry))* cameraSpeed * Time.deltaTime;
+        Debug.Log(transform.position + "   "+ player.transform.position);
     }
 }
