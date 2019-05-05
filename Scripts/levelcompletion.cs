@@ -7,12 +7,6 @@ public class levelcompletion : MonoBehaviour
     public GameManagerScript gm;
     public float timeLimit;
     private float startTime;
-    // void OnCollisionEnter(UnityEngine.Collision coll){
-    //     if(coll.gameObject.tag == "player"){
-    //         Debug.Log("Level Complete");
-    //         // Level Completion scripts
-    //     }
-    // }
 
     void OnTriggerEnter(Collider coll){
         if(coll.gameObject.tag == "player"){
