@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     float currentspeed ;
     public string axis1 = "Horizontal";
     public string axis2 = "Vertical";
+
+    public Animator animL,animR;
     // public Animator anim;
 
     // Use this for initialization
@@ -20,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
         // anim = gameObject.GetComponent<Animator> ();
         currentspeed = speed;
         source = GetComponent<AudioSource>();
+        animL.Play("walkinLeft");
+        animR.Play("walking");
     }
     
     // Update is called once per frame
@@ -27,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         // Debug.Log("Player position : "+transform.position);
         walking = false;
         // anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis(axisName)));
+
         if (Input.GetAxis (axis1) < 0)
         {
                 Vector3 newScale = transform.localScale;
@@ -67,10 +72,16 @@ public class PlayerMovement : MonoBehaviour
         transform.position += (transform.right *Input.GetAxis(axis1) + transform.up *Input.GetAxis(axis2))* currentspeed * Time.deltaTime;
         if(! walking ){
                 source.Pause();
+                animL.enabled = false;
+                animR.enabled = false;
         }
         if(!source.isPlaying && walking){
                 source.clip = clips[Random.Range(0,clips.Length)];
                 source.Play();
+        }
+        if(walking){
+                animL.enabled = true;
+                animR.enabled = true;
         }
         
 
