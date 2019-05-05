@@ -7,6 +7,10 @@ public class GameManagerScript : MonoBehaviour
 {
     public GameObject levelcompleteUI;
     public GameObject levelfailedUI;
+
+    public GameObject pauseMenuUI;
+
+    private bool isPaused = false;
     public void levelcomplete(){
         Debug.Log("YOUR LEVLE DONE");
         levelcompleteUI.SetActive(true);
@@ -19,6 +23,27 @@ public class GameManagerScript : MonoBehaviour
         // Handlers
     }
 
+    void pauseMenu(bool enable){
+        pauseMenuUI.SetActive(enable);
+    }
+
+    public void pausing(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            Debug.Log("Game Paused");
+            if(!isPaused){
+                Time.timeScale = 0;
+                isPaused = true;
+            }
+            else{
+                Time.timeScale = 1;
+                isPaused = false;
+            }
+        }
+        pauseMenu(isPaused);
+    }
+    public void Update(){
+        pausing();
+    }
     void loadNextLevel(){
         if(SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1 ){
             Debug.Log("You Have Completed game");

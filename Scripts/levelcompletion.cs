@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class levelcompletion : MonoBehaviour
 {
     public GameManagerScript gm;
+    public GameObject panel;
     public float timeLimit;
     private float startTime;
 
@@ -24,7 +25,8 @@ public class levelcompletion : MonoBehaviour
             Debug.Log("LEVEL FAILED");
             gm.levelfailed();
         }
-        Debug.Log(Time.time);
+        panel.GetComponentInChildren<Text>().text = ("Time : "+Mathf.FloorToInt(timeLimit - (startTime + Time.time)));
+        // Debug.Log(Time.time);
     }
 
 }

@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour
     public Color hcolor;
     public int zoom;
     public int stdzoom;
-    private Color stdcolor = Color.black;
+    private Color stdcolor = Color.white;
     private Camera cam;
     public float dimensionX,dimensionY;
     // Start is called before the first frame update
