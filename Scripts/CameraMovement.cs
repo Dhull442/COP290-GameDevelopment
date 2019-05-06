@@ -13,14 +13,12 @@ public class CameraMovement : MonoBehaviour
     public Color hcolor;
     public int zoom;
     public int stdzoom;
-    private Color stdcolor = Color.white;
+    public Color stdcolor = Color.black;
     private Camera cam;
     public float dimensionX,dimensionY;
     // Start is called before the first frame update
     void Start()
     {
-        // transform.position = player.transform.position;
-        // transform.position.z = -10;
         cam = GetComponent<Camera>();
         hintsgiven = 0;
         hinttime = -100;
@@ -33,14 +31,14 @@ public class CameraMovement : MonoBehaviour
             if(hintsgiven < hintNum){
                 cam.backgroundColor = hcolor;
                 cam.orthographicSize = zoom;
-                hinttime = Time.time;
+                hinttime = Time.timeSinceLevelLoad;
                 hintsgiven += 1;
             }
             else{
                 Debug.Log("Consumed all hints");
             }
         }
-        if(Time.time > hinttime + hintTimeout){
+        if(Time.timeSinceLevelLoad > hinttime + hintTimeout){
             cam.orthographicSize = stdzoom;
             cam.backgroundColor = stdcolor;
         }

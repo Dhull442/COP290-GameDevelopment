@@ -42,7 +42,12 @@ public class Collision : MonoBehaviour
     public bool rotatingObstacle;
     public float rotationSpeed = 100f;
 
+    public Color harmcolor;
+    public Color stdcolor= Color.black;
+    public Color hitcolor;
+    private Color setcolor ;
     private Vector3 originalSize;
+    public levelcompletion lc;
 
     Renderer rend;
     void OnCollisionEnter(UnityEngine.Collision coll){
@@ -50,25 +55,27 @@ public class Collision : MonoBehaviour
             if(harmfulObstacle){
                 harmSource.clip = harmClips[Random.Range(0,harmClips.Length-1)];
                 harmSource.Play();
-                rend.sharedMaterial = materials[2];
+                setcolor = harmcolor;
+                lc.penalise(timePenalty/2.0f);
             }
             else{
             source.clip = stickclips[Random.Range(0,stickclips.Length -1)];
             source.Play();
-            rend.sharedMaterial = materials[1];
-            }
-            // Debug.Log("Collision with stick");                
+            setcolor = hitcolor;
+            // rend.sharedMaterial = materials[1];
+            }             
             if(expandable  && !(expansionDone || expand)){
                 expand = true;
-                expansionStartTime = Time.time;
+                expansionStartTime = Time.timeSinceLevelLoad;
             }
-            timeOfCollision = Time.time;
+            timeOfCollision = Time.timeSinceLevelLoad;
         }
         if(coll.gameObject.tag=="player"){
         if(harmfulObstacle){
             if(!harmSource.isPlaying){
                 harmSource.clip = harmClips[Random.Range(0,harmClips.Length-1)];
                 harmSource.Play();
+                setcolor = harmcolor;
             }
             // Time Penalty here
         }
@@ -76,8 +83,12 @@ public class Collision : MonoBehaviour
             if(!source.isPlaying){
                 source.clip = clips[Random.Range(0,clips.Length -1 )];
                 source.Play();
+                setcolor = hitcolor;
             }
         }
+        
+        lc.penalise(timePenalty);
+        timeOfCollision = Time.timeSinceLevelLoad;
         }
         
     }
@@ -96,13 +107,22 @@ public class Collision : MonoBehaviour
         harmSource = GetComponents<AudioSource>()[2];
         movementSource = GetComponents<AudioSource>()[3];
         rotationSource = GetComponents<AudioSource>()[4];
+        // setcolor = stdcolor;
+        rend.material.color = stdcolor;
+        rend.material.SetColor("_EmissionColor",stdcolor);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > timeOfCollision + timeout){
-            rend.sharedMaterial = materials[0];
+        if(Time.timeSinceLevelLoad < timeOfCollision + timeout){
+            // rend.sharedMaterial = materials[0];
+            Color c = Color.Lerp(setcolor, stdcolor, (Time.timeSinceLevelLoad - timeOfCollision) / timeout);
+            rend.material.color = c;
+            rend.material.SetColor("_EmissionColor",c);// = Color.Lerp(setcolor, stdcolor, (Time.timeSinceLevelLoad - timeOfCollision) / timeout);
+        }
+        else{
+            // rend.material.SetColor("_EmissionColor",Color.black);
         }
         if(movingObstacle){
             Vector3 dir;
@@ -113,19 +133,19 @@ public class Collision : MonoBehaviour
                 dir = Vector3.right;
             }
             float w = Mathf.Sqrt(movementAcceleration / movementBound);
-            transform.Translate(centerposition + dir*movementBound*Mathf.Cos(w*Time.time) - transform.position);
+            transform.Translate(centerposition + dir*movementBound*Mathf.Cos(w*Time.timeSinceLevelLoad) - transform.position);
             if(!movementSource.isPlaying){
                 movementSource.clip= movementClips[Random.Range(0,movementClips.Length -1 )];
                 movementSource.Play();
             }
         }
         if(expand){
-            if(Time.time > expansionStartTime + expandTime){
+            if(Time.timeSinceLevelLoad > expansionStartTime + expandTime){
                 expansionDone = true;
                 expand = false;
                 expansionSource.Stop();
             }
-            float changeamt = (Time.time - expansionStartTime)/expandTime;
+            float changeamt = (Time.timeSinceLevelLoad - expansionStartTime)/expandTime;
             Vector3 targetscale = (dimLimits[0] -1.0f)*originalSize.x*Vector3.right + (dimLimits[1]-1.0f)*originalSize.y*Vector3.up ;
             
             // add music as well;
@@ -141,5 +161,7 @@ public class Collision : MonoBehaviour
                 rotationSource.clip = rotationclips[Random.Range(0,rotationclips.Length -1)];
             }
         }
+        // Color changing
+
     }
 }
