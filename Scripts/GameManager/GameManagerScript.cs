@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject levelcompleteUI;
+    
     public GameObject levelfailedUI;
 
     public GameObject pauseMenuUI;
 
     private bool isPaused = false;
+    public Button resumeButton;
+
+    public void Start() {
+        
+    }
     public void levelcomplete(){
         Debug.Log("YOUR LEVLE DONE");
         levelcompleteUI.SetActive(true);
@@ -24,7 +31,7 @@ public class GameManagerScript : MonoBehaviour
     }
 
     void pauseMenu(bool enable){
-        pauseMenuUI.SetActive(enable);
+        pauseMenuUI.SetActive(enable);    
     }
 
     public void pausing(){
@@ -32,7 +39,8 @@ public class GameManagerScript : MonoBehaviour
             Debug.Log("Game Paused");
             if(!isPaused){
                 Time.timeScale = 0;
-                isPaused = true;
+                isPaused = true;                
+
             }
             else{
                 Time.timeScale = 1;
@@ -40,6 +48,16 @@ public class GameManagerScript : MonoBehaviour
             }
         }
         pauseMenu(isPaused);
+        if(isPaused){
+                resumeButton = GameObject.Find("ResumeBtn").GetComponent<Button>();
+                resumeButton.onClick.AddListener(unpause);
+        }
+    }
+    public void unpause(){
+        Debug.Log("UNPAUSE CALLED");
+        pauseMenu(false);
+        Time.timeScale = 1;
+        isPaused = false;
     }
     public void Update(){
         pausing();

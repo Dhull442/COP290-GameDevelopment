@@ -8,6 +8,11 @@ public class levelcompletion : MonoBehaviour
     public GameObject panel;
     public float timeLimit;
     private float startTime;
+    public Slider timebar;
+    public Image fill;
+
+    public Color endcolor;
+    public Color startcolor;
 
     void OnTriggerEnter(Collider coll){
         if(coll.gameObject.tag == "player"){
@@ -17,16 +22,23 @@ public class levelcompletion : MonoBehaviour
     }
 
     void Start(){
-        startTime= Time.time;
+        Time.timeScale = 1;
+        startTime = Time.timeSinceLevelLoad;
     }
 
     void Update(){
-        if(Time.time > startTime+timeLimit){
+        if(Time.timeSinceLevelLoad > startTime+timeLimit){
             Debug.Log("LEVEL FAILED");
             gm.levelfailed();
         }
-        panel.GetComponentInChildren<Text>().text = ("Time : "+Mathf.FloorToInt(timeLimit - (startTime + Time.time)));
-        // Debug.Log(Time.time);
+        float timeleft = timeLimit - (startTime + Time.timeSinceLevelLoad);
+        timebar.value = timeleft/timeLimit;
+        float value = (timeleft/timeLimit);
+        fill.color =  value * startcolor + (1 - value)  * endcolor ;
+    }
+
+    public void penalise(float time){
+        startTime += time;  
     }
 
 }
