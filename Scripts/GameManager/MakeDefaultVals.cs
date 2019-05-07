@@ -13,6 +13,10 @@ public class MakeDefaultVals : MonoBehaviour
         float musicDef = 0.5f;
         float fxDef = 0.5f;
         float keyboardDef = 0.5f;
+        dataHandler.tmp.musicVolume = musicDef;
+        dataHandler.tmp.masterVolume = fxDef;
+        //dataHan
+        dataHandler.SaveData();
         musicSlider.value = musicDef;
         fxSlider.value = fxDef;
         keyboardSlider.value = keyboardDef;
