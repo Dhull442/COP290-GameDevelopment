@@ -13,8 +13,10 @@ public class PlayerMovement : MonoBehaviour
     float currentspeed ;
     public string axis1 = "Horizontal";
     public string axis2 = "Vertical";
-
+    private Rigidbody rb;
     public Animator animL,animR;
+    public string[] left, right;
+    private int orientation;
     // public Animator anim;
 
     // Use this for initialization
@@ -22,8 +24,11 @@ public class PlayerMovement : MonoBehaviour
         // anim = gameObject.GetComponent<Animator> ();
         currentspeed = speed;
         source = GetComponent<AudioSource>();
-        animL.Play("walkinLeft");
-        animR.Play("walking");
+        //animL.Play("walkinLeft");
+        //animR.Play("walking");
+        rb = GetComponent<Rigidbody>();
+
+        orientation = 0;
     }
     
     // Update is called once per frame
@@ -31,46 +36,86 @@ public class PlayerMovement : MonoBehaviour
         // Debug.Log("Player position : "+transform.position);
         walking = false;
         // anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis(axisName)));
-
-        if (Input.GetAxis (axis1) < 0)
+        float hin = Input.GetAxis(axis1), vin = Input.GetAxis(axis2);
+        if (hin != 0||vin!=0)
         {
-                Vector3 newScale = transform.localScale;
-                newScale.y = 1.0f;
-                newScale.x = 1.0f;
-                transform.localScale = newScale;
+                // Vector3 newScale = transform.localScale;
+                // newScale.y = 1.0f;
+                // newScale.x = 1.0f;
+                // transform.localScale = newScale;
+                
                 walking = true;
         } 
-        else if (Input.GetAxis (axis1) > 0)
+
+        // else if (Input.GetAxis (axis1) > 0)
+        // {
+        //         Vector3 newScale =transform.localScale;
+        //         newScale.x = 1.0f;
+        //         transform.localScale = newScale; 
+        //         walking = true;       
+        // }
+        // if (Input.GetAxis (axis2) < 0)
+        // {
+        //         // Vector3 newScale = transform.localScale;
+        //         // newScale.y = 1.0f;
+        //         // newScale.x = 1.0f;
+        //         // transform.localScale = newScale;
+        //         walking = true;
+        // } 
+        // else if (Input.GetAxis (axis2) > 0)
+        // {
+        //         Vector3 newScale =transform.localScale;
+        //         newScale.y = 1.0f;
+        //         transform.localScale = newScale;      
+        //         walking = true;  
+        // }
+
+        if (orientation == 0)
         {
-                Vector3 newScale =transform.localScale;
-                newScale.x = 1.0f;
-                transform.localScale = newScale; 
-                walking = true;       
-        }
-        if (Input.GetAxis (axis2) < 0)
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; ;
+        } else if (orientation == 1) {
+            // Make the character face towards left
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; ;
+        } else if (orientation == 2)
         {
-                Vector3 newScale = transform.localScale;
-                newScale.y = 1.0f;
-                newScale.x = 1.0f;
-                transform.localScale = newScale;
-                walking = true;
-        } 
-        else if (Input.GetAxis (axis2) > 0)
+            // Make the character face downwards
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; ;
+        } else if (orientation == 3)
         {
-                Vector3 newScale =transform.localScale;
-                newScale.y = 1.0f;
-                transform.localScale = newScale;      
-                walking = true;  
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         }
 
-        if( Input.GetKey(KeyCode.LeftShift)){
+        if (vin != 0)
+        {
+            if (vin > 0)
+            {
+                orientation = 0;
+            } else
+            {
+                orientation = 2;
+            }
+        } else if (hin != 0)
+        {
+            if (hin > 0)
+            {
+                orientation = 1;
+            } else
+            {
+                orientation = 3;
+            }
+        }
+
+        if ( Input.GetButton("Fire1")){
                 currentspeed = speedup*speed;
         }
         else{
                 currentspeed = speed;
         }
-        transform.position += (transform.right *Input.GetAxis(axis1) + transform.up *Input.GetAxis(axis2))* currentspeed * Time.deltaTime;
-        if(! walking ){
+        
+        rb.AddForce(100000*(vin*Vector3.up + hin*Vector3.right)*currentspeed);
+        // transform.position += (transform.right *Input.GetAxis(axis1) + transform.up *Input.GetAxis(axis2))* currentspeed * Time.deltaTime;
+        
+        if(! walking ) {
                 source.Pause();
                 animL.enabled = false;
                 animR.enabled = false;
@@ -80,6 +125,24 @@ public class PlayerMovement : MonoBehaviour
                 source.Play();
         }
         if(walking){
+            if(orientation == 2)
+            {
+                animL.Play(left[0]);
+
+                animR.Play(right[0]);
+            }
+            else
+            {   if (orientation == 3)
+                {
+                    animL.Play(left[2]);
+                    animR.Play(right[2]);
+                }
+                else
+                {
+                    animL.Play(left[orientation]);
+                    animR.Play(right[orientation]);
+                }
+            }
                 animL.enabled = true;
                 animR.enabled = true;
         }
