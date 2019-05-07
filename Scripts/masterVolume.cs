@@ -11,9 +11,10 @@ public class masterVolume : MonoBehaviour
     
     public void ChangeMusicVol() {
         // musicSource = GameObject.Find("MainCamera").GetComponent<AudioSource>();
-        Slider musicSlider = GameObject.Find("MasterSlider").GetComponent<Slider>();
-        // AudioListener.volume = musicSlider.value;
+        Slider musicSlider = GetComponent<Slider>();
         AudioListener.volume = musicSlider.value;
+        dataHandler.tmp.masterVolume = musicSlider.value;
+        dataHandler.SaveData();
     }
 
 }
