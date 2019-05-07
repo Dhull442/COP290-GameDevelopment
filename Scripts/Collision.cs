@@ -43,11 +43,11 @@ public class Collision : MonoBehaviour
     public float rotationSpeed = 100f;
 
     public Color harmcolor;
-    public Color stdcolor= Color.black;
+    public Color stdcolor= Color.grey;
     public Color hitcolor;
     private Color setcolor ;
     private Vector3 originalSize;
-    public levelcompletion lc;
+    public GameManagerScript gm;
 
     Renderer rend;
     void OnCollisionEnter(UnityEngine.Collision coll){
@@ -56,13 +56,12 @@ public class Collision : MonoBehaviour
                 harmSource.clip = harmClips[Random.Range(0,harmClips.Length-1)];
                 harmSource.Play();
                 setcolor = harmcolor;
-                lc.penalise(timePenalty/2.0f);
+                gm.penalise(0.125f);
             }
             else{
             source.clip = stickclips[Random.Range(0,stickclips.Length -1)];
             source.Play();
             setcolor = hitcolor;
-            // rend.sharedMaterial = materials[1];
             }             
             if(expandable  && !(expansionDone || expand)){
                 expand = true;
@@ -87,7 +86,7 @@ public class Collision : MonoBehaviour
             }
         }
         
-        lc.penalise(timePenalty);
+        gm.penalise(0.25f);
         timeOfCollision = Time.timeSinceLevelLoad;
         }
         
@@ -95,6 +94,7 @@ public class Collision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();  
         rend = GetComponent<Renderer>();
         rend.enabled = true;
         rend.sharedMaterial = materials[0];
@@ -116,13 +116,9 @@ public class Collision : MonoBehaviour
     void Update()
     {
         if(Time.timeSinceLevelLoad < timeOfCollision + timeout){
-            // rend.sharedMaterial = materials[0];
             Color c = Color.Lerp(setcolor, stdcolor, (Time.timeSinceLevelLoad - timeOfCollision) / timeout);
             rend.material.color = c;
             rend.material.SetColor("_EmissionColor",c);// = Color.Lerp(setcolor, stdcolor, (Time.timeSinceLevelLoad - timeOfCollision) / timeout);
-        }
-        else{
-            // rend.material.SetColor("_EmissionColor",Color.black);
         }
         if(movingObstacle){
             Vector3 dir;
@@ -159,6 +155,7 @@ public class Collision : MonoBehaviour
             transform.Rotate(0,0,rotationSpeed * Time.deltaTime);
             if(!rotationSource.isPlaying){
                 rotationSource.clip = rotationclips[Random.Range(0,rotationclips.Length -1)];
+                rotationSource.Play();
             }
         }
         // Color changing
