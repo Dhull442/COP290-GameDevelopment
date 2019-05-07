@@ -13,9 +13,12 @@ public class StickMovement : MonoBehaviour
     private Vector3 limP;
     private Vector3 limN;
     private Rigidbody rb;
+    private float tmpStickLength;
     public float stickLength = 1.0f;
-    public float minStickLength = 0.75f ;
-    private float scale=0.5f;
+    public float minStickLength = 0.25f ;
+    private float scale = 1.5f;
+    private float lengthSpeed = 0.3f;
+    
     // Start is called before the first frame update
     void Start(){
         parent = transform.parent.gameObject;
@@ -36,14 +39,54 @@ public class StickMovement : MonoBehaviour
         }
         return 0f;
     }
+
+    float mysig(float val, float lim)
+    {
+        if (val > lim)
+        {
+            return 1.0f;
+        } else
+        {
+            return -1.0f;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {   
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y,0);
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector3 dir = objPosition- parent.transform.position;dir.z = 0;
-        Vector3 diff = transform.position - parent.transform.position;diff.z = 0;
-        
+        Vector3 dir = objPosition- transform.position; dir.z = 0;
+        Vector3 diff = objPosition - transform.position;diff.z = 0;
+
+        //Debug.Log("SCALE: " + scale.ToString());
+        //Debug.Log("ORG: " + transform.position.magnitude.ToString());
+        //Debug.Log("DIFF: " + (diff.magnitude/scale).ToString());
+        //if (diff.magnitude / scale > stickLength)
+        //{
+        //    Debug.Log("CALC LENGTH GREATER THAN MAX");
+        //    tmpStickLength = stickLength;
+        //}
+        //else if (diff.magnitude / scale < minStickLength)
+        //{
+        //    Debug.Log("CALC LENGTH LESSER THAN MIN");
+        //    tmpStickLength = minStickLength;
+        //}
+        //else
+        //{
+        //    Debug.Log("CALC LENGTH SETTINg");
+        //    tmpStickLength = diff.magnitude / scale;
+        //}
+        ////Debug.Log("TMP STICK: " + tmpStickLength.ToString());
+        //if (Mathf.Abs(tmpStickLength - currentstickLength) < lengthSpeed)
+        //{
+        //    Debug.Log("DIRECT");
+        //    currentstickLength = tmpStickLength;
+        //} else {
+        //    Debug.Log("Changing: " + (mysig(tmpStickLength, currentstickLength) * lengthSpeed).ToString());
+        //    currentstickLength += mysig(tmpStickLength, currentstickLength) * lengthSpeed;
+        //}
+
         float currentAngle = transform.eulerAngles.z;
         if (currentAngle>180){
             currentAngle -= 360;
@@ -56,27 +99,36 @@ public class StickMovement : MonoBehaviour
         if(angle <-limit){
             rb.AddTorque( rotationSpeed * (angle/angleLim )*  Vector3.forward);
         }
-        float change = Input.GetAxis("Mouse ScrollWheel");
+
+
+
+        float change = Input.GetAxis("Mouse ScrollWheel") * scale;
         bool changelength = false;
-        if(change > 0.05f){
-            if(currentstickLength + scale * change < stickLength){
+        if (change > 0.05f)
+        {
+            if (currentstickLength + scale * change < stickLength)
+            {
                 currentstickLength += scale * change;
             }
-            else{
+            else
+            {
                 currentstickLength = stickLength;
             }
             changelength = true;
         }
-        if(change < -0.05f){
+        if (change < -0.05f)
+        {
             changelength = true;
-            if(currentstickLength + scale*change > minStickLength){
+            if (currentstickLength + scale * change > minStickLength)
+            {
                 currentstickLength += scale * change;
             }
-            else{
+            else
+            {
                 currentstickLength = minStickLength;
             }
         }
-        if(changelength)
+        if (changelength)
             transform.localScale = 0.125f * currentstickLength * Vector3.up + 0.5f * Vector3.right + Vector3.forward;
     }
 }
