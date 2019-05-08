@@ -1,6 +1,7 @@
 # Into the Darkness:
 A game in which the player plays by the perspective of a blind person with only a stick available to direct them.
 The game is currently thought of being a maze solving puzzle game but can be amended later on.
+Created by [Saksham Dhull](https://github.com/Dhull442) and [Ananye Agarwal](https://github.com/anag004).
 
 ### Key Features:
 - The person will have a stick and his height might be varied which varies the parts where the stick can reach.
@@ -10,11 +11,6 @@ The game is currently thought of being a maze solving puzzle game but can be ame
 - The game is currently 2D but can be easily extended to 3D.
 - Integration of different platforms can also be done using unity. < this might probably fetch us a lot of marks >
 - Database handling and UI should be cute and minimalistic. The design of player and objects are also to be done.
-
-### Credits:
-- Audio : [freesound](freesound.org/), [soundbible](http://soundbible.com)
-
-
-[Saksham Dhull](https://github.com/Dhull442) 
 <br>
-[Ananye Agarwal](https://github.com/anag004)
+Audio imported from [freesound](freesound.org/), [soundbible](http://soundbible.com)
+
