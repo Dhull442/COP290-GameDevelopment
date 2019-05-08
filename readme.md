@@ -11,10 +11,10 @@ The game is currently thought of being a maze solving puzzle game but can be ame
 - Integration of different platforms can also be done using unity. < this might probably fetch us a lot of marks >
 - Database handling and UI should be cute and minimalistic. The design of player and objects are also to be done.
 
-### Credits:
-- Audio : [freesound](freesound.org/), [soundbible](http://soundbible.com)
+### Creators:
+- [Saksham Dhull](https://github.com/Dhull442) 
+- [Ananye Agarwal](https://github.com/anag004)
+
+Creative commons sounds imported from  [freesound](freesound.org/), [soundbible](http://soundbible.com)
 
 
-[Saksham Dhull](https://github.com/Dhull442) 
-<br>
-[Ananye Agarwal](https://github.com/anag004)
