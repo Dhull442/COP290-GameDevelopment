@@ -2,7 +2,7 @@
 
 How do blind people navigate? This game tests your spatial memory, a skill that is essential for blind people to navigate the world. You must navigate a dark room with objects that only light up for a brief moment when you touch them with your stick. There are surround-sound audio cues to help you figure out approximate locations of objects, but in order to successfully navigate you must hold in memory the location of the objects. The levels get progressively harder, you will encounter rotating, expanding and translating objects!
 
-Download the [zip file](https://github.com/Dhull442/COP290-GameDevelopment/zipball/master) containing the executable (currently only for Windows platforms). 
+Download the game (Windows only) - [64 bit](https://drive.google.com/drive/folders/1SZz8YfVJsWDkObiGlXwvyoakIjquP2YM?usp=sharing), [32 bit](https://drive.google.com/drive/folders/11Hz6bFz5F2XDgUafpIKIBRU9N1eMvjJt?usp=sharing)
 
 ## Screenshots
 
