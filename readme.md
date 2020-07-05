@@ -6,7 +6,54 @@ Download the game (Windows only) - [64 bit](https://drive.google.com/drive/folde
 
 ## Screenshots
 
-Key Features:
+<table>
+  <tr>
+    <td>
+      <figure>
+      <img src="https://github.com/Dhull442/COP290-GameDevelopment/raw/master/screenshots/splash_screen.png">
+        <figcaption>Game splash screen</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure>
+      <img src="https://github.com/Dhull442/COP290-GameDevelopment/raw/master/screenshots/red_block.png">
+        <figcaption>A static obstacle lights up upon contact</figcaption>
+      </figure>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <figure>
+      <img src="https://github.com/Dhull442/COP290-GameDevelopment/blob/master/screenshots/green_block.png">
+        <figcaption>A hazardous block - collision reduces health</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure>
+      <img src="https://github.com/Dhull442/COP290-GameDevelopment/raw/master/screenshots/failed.png">
+        <figcaption>Failing a level</figcaption>
+      </figure>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <figure>
+      <img src="https://github.com/Dhull442/COP290-GameDevelopment/blob/master/screenshots/settings.png">
+        <figcaption>The music and master volumes can be changed</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure>
+      <img src="https://github.com/Dhull442/COP290-GameDevelopment/raw/master/screenshots/help.png">
+        <figcaption>The game also has instructions on playing</figcaption>
+      </figure>
+    </td>
+  </tr>
+ </table>
+
+
+
+## Key Features
 - The person has a controllable stick, whose angle and length can be adjusted
 - There are be 3D sounds that will also help him in moving around.
 - As he hits the objects with his stick, he will see sense the objects boundaries as red impressions in the dark world. The impressions always fade away quickly, and object locations must be remembered
